@@ -1,5 +1,5 @@
 import {ThemedText} from "@/components/themed-text";
-import {StyleSheet, TextInput, View} from "react-native";
+import {Pressable, StyleSheet, TextInput, View, Text} from "react-native";
 import {ThemedView} from "@/components/themed-view";
 import {SafeAreaView} from "react-native-safe-area-context";
 import {useState} from "react";
@@ -7,6 +7,7 @@ import {useState} from "react";
 export default function Login() {
     const [text, setText] = useState('');
     const [password, setPassword] = useState('')
+    const [isPasswordSecure, setIsPasswordSecure] = useState<boolean>(true)
 
     const handleSubmit = () => {
         console.log('Submitted username:', text);
@@ -35,9 +36,18 @@ export default function Login() {
                         placeholder="Password"
                         placeholderTextColor="#888"
                         onChangeText={(value: string) => setPassword(value)}
+                        secureTextEntry={isPasswordSecure}
                         value={password}
                         onSubmitEditing={handleSubmit}
                     />
+                    <Pressable
+                        style={styles.securePasswordButton}
+                        onPress={() => setIsPasswordSecure(!isPasswordSecure)}
+                    >
+                        <Text style={styles.securePasswordButtonText}>
+                            {isPasswordSecure ? 'Show' : 'Hide'}
+                        </Text>
+                    </Pressable>
                 </View>
             </SafeAreaView>
         </ThemedView>
@@ -76,6 +86,15 @@ const styles = StyleSheet.create({
         paddingHorizontal: 12,
         fontSize: 16,
         color: 'white',
-    }
+    },
+
+    securePasswordButton: {
+        padding: 8,
+    },
+
+    securePasswordButtonText: {
+        color: 'white',
+    },
+
 
 })
