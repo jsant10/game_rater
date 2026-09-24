@@ -13,16 +13,13 @@ export default function Login() {
     const isPasswordValid = password.length >= 8
     const isFormValid = isEmailValid && isPasswordValid
 
-
-    const handleSubmit = () => {
-        console.log('Submitted username:', text)
-        console.log('Submitted Password', password)
-    };
-
     const handleLogin = () => {
         setAttemptedsubmit(true)
-        if (!isFormValid) return;
-        console.log('Logging in with:', text, password)
+        if (!isFormValid) {
+            console.log('Form is Invalid')
+        } else {
+            console.log('Logging in with:', text, password)
+        }
     };
 
     return (
@@ -38,7 +35,6 @@ export default function Login() {
                         placeholderTextColor="#888"
                         onChangeText={(value: string) => setText(value)}
                         value={text}
-                        onSubmitEditing={handleSubmit}
                     />
                 </View>
                 <View style={styles.usernameInputView}>
@@ -49,7 +45,6 @@ export default function Login() {
                         onChangeText={(value: string) => setPassword(value)}
                         secureTextEntry={isPasswordSecure}
                         value={password}
-                        onSubmitEditing={handleSubmit}
                     />
                     <Pressable
                         style={styles.securePasswordButton}
@@ -131,7 +126,7 @@ const styles = StyleSheet.create({
     loginButton: {
         backgroundColor: '#4f8ef7',
         borderRadius: 8,
-        paddingVertical: 12,
+        padding: 12,
         alignItems: 'center',
         marginHorizontal: 16,
     },
